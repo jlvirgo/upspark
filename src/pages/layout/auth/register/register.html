@@ -7,9 +7,9 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}">
+<ion-content style="background-color:#0a0a0a;">
   <div class="login-container">
-    <img class="logo" src="./assets/medium_150.70391061453px_1202562_easyicon.net.png" />
+    <img class="logo" src="./assets/upspark_logo.png" />
     <!--*********** Form ***********-->
 
     <form [formGroup]="registerForm" (submit)="registerUser()" novalidate>
@@ -38,7 +38,7 @@
       </ion-item>
 
 
-      
+
       <ion-item class="error-message">
         <p *ngIf="!registerForm.controls.profileName.valid  &&
                 registerForm.controls.profileName.dirty">*Please enter your name.</p>

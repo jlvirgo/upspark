@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 //***********  ionic-native **************/
 import { StatusBar } from '@ionic-native/status-bar';
@@ -12,14 +13,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
-  rootPage: string = 'IntroPage';
+  rootPage: string = 'LoginPage';
   menu:Array<any> = [];
   pages: Array<any>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public af: AngularFireAuth, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
-    this.menu = [          
+    // this.af.auth.subscribe(auth => console.log(auth));
+
+    this.menu = [
 
         {
           title: 'Layout with firebase',
@@ -28,20 +31,20 @@ export class MyApp {
           icon: 'ios-add-outline',
           showDetails: false,
           items:  [
-                
+
               {name:'Authentication(Login)',component:'LoginPage'},
               {name:'Authentication(Register)',component:'RegisterPage'},
               {name:'Authentication(Forgot)',component:'ForgotPage'},
               {name:'Authentication(Profile)',component:'AfterLoginPage'},
               {name:'Chart',component:'ChartPage'},
 
-              {name:'City guide', component: 'Category1Page'},// app1 folder
-              {name:'Shopping',component:'Category2Page'},// app2 folder
-              {name:'Restaurant',component:'Category3Page'}, // app3 folder
-              {name:'Google map',component: 'MapPage'},
-              {name:'Image gallery',component: 'GalleryPage'},
-              {name:'Feed',component: 'FeedPage'},
-              {name:'Form',component: 'FormResultPage'},
+              // {name:'City guide', component: 'Category1Page'},// app1 folder
+              // {name:'Shopping',component:'Category2Page'},// app2 folder
+              // {name:'Restaurant',component:'Category3Page'}, // app3 folder
+              // {name:'Google map',component: 'MapPage'},
+              // {name:'Image gallery',component: 'GalleryPage'},
+              // {name:'Feed',component: 'FeedPage'},
+              // {name:'Form',component: 'FormResultPage'},
 
 
               {name:'Intro', component:'IntroPage'},
@@ -80,7 +83,7 @@ export class MyApp {
                 {name:'Label',component:'LabelPage'},
                 {name:'Radio button',component:'RadioButtonPage'},
                 {name:'Rating',component:'RatingPage'},
-                
+
                 {name:'Range',component:'RangePage'},
                 {name:'Search bar', component:'SearchBarPage'},
                 {name:'Select option',component:'SelectOptionPage'},
@@ -107,9 +110,9 @@ export class MyApp {
         }
     ];
 
-    this.pages = [ 
-      // { icon:'call', title:'Contact us', component: 'ContactPage' },
-      { icon:'bookmark', title:'Version 1.1.0', component: "" }    
+    this.pages = [
+      {icon: 'log-in', title: 'Login',component:'LoginPage'},
+      {icon: 'add-circle', title:'Register', component:'RegisterPage'}
     ];
 
   }
@@ -118,7 +121,7 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
@@ -136,7 +139,7 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    // page.component = item array.component --> 
+    // page.component = item array.component -->
     //this.nav.setRoot(page.component);
     this.nav.setRoot(page.component).catch(err => console.error(err));
   }

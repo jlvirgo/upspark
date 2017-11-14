@@ -6,15 +6,15 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}">
+<ion-content style="background-color:#0a0a0a;">
   <div class="login-container">
-    <img class="logo" src="./assets/medium_150.70391061453px_1202562_easyicon.net.png" />
-    
+    <img class="logo" src="./assets/upspark_logo.png" />
+
     <!--*********** Form ***********-->
     <form [formGroup]="loginForm" (submit)="login()" novalidate>
       <ion-item>
-        <ion-label floating>Username</ion-label>
-        <ion-input tappable color="light" #email type="email" formControlName="email" [class.invalid]="!loginForm.controls.email.valid &&loginForm.controls.email.dirty">
+        <ion-label floating>E-mail</ion-label>
+        <ion-input tappable color="black" #email type="email" formControlName="email" [class.invalid]="!loginForm.controls.email.valid &&loginForm.controls.email.dirty">
         </ion-input>
       </ion-item>
 
@@ -33,8 +33,8 @@
 
       <div class="submit-box">
         <button ion-button block type="submit" color="blue2">Log in</button>
-        
-        <button ion-button type="button" block icon-left color="light" outline (click)="createAccount()" margin-top>
+
+        <button ion-button type="button" block icon-left color="dark" outline (click)="createAccount()" margin-top>
             <ion-icon name="ios-create"></ion-icon> Create new account
         </button>
       </div>
