@@ -1,10 +1,43 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import { AngularFireDatabase, FirebaseObjectObservable} from 'angularfire2/database';
+import md5 from 'crypto-md5'; // dependencies:"crypto-md5"
 
 @Injectable()
 export class AuthData {
-  constructor(public afAuth: AngularFireAuth) {
+  authState: any = null;
+  email: any = null;
+  profilePicture: any = null;
+  profileArray : any=[];
+  profile: FirebaseObjectObservable<any[]>;
+  uid: any = null;
+
+  constructor(public afAuth: AngularFireAuth,  public afDb: AngularFireDatabase) {
+    this.afAuth.authState.subscribe((auth) => {
+      if(auth) {
+        this.authState = auth;
+        this.uid = auth.uid;
+        this.email = auth.email;
+        this.profilePicture = "https://www.gravatar.com/avatar/" + md5(this.email.toLowerCase(), 'hex');
+        this.profile = this.afDb.object('/userProfile/'+this.uid );
+        this.profile.subscribe(profile => {
+          this.profileArray = profile;
+        })
+      }
+    });
+  }
+
+  get authenticated(): boolean {
+    return this.authState !== null;
+  }
+
+  get userProfile(): any {
+    return this.profile;
+  }
+
+  get userProfilePicture(): string {
+    return this.profilePicture;
   }
 
   loginUser(newEmail: string, newPassword: string): firebase.Promise<any> {
@@ -18,7 +51,7 @@ export class AuthData {
   logoutUser(): firebase.Promise<any> {
     return this.afAuth.auth.signOut();
   }
-  
+
   registerUser(name: string, email: string, password: string,phone: number): firebase.Promise<any> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((newUser) => {
       firebase.database().ref('/userProfile').child(newUser.uid).set({

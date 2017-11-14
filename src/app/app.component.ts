@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthData } from '../providers/auth-data';
 
 //***********  ionic-native **************/
 import { StatusBar } from '@ionic-native/status-bar';
@@ -16,11 +16,10 @@ export class MyApp {
   rootPage: string = 'LoginPage';
   menu:Array<any> = [];
   pages: Array<any>;
+  loggedInPages: Array<any>;
 
-  constructor(public af: AngularFireAuth, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public authService: AuthData, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
-
-    // this.af.auth.subscribe(auth => console.log(auth));
 
     this.menu = [
 
@@ -43,7 +42,7 @@ export class MyApp {
               // {name:'Restaurant',component:'Category3Page'}, // app3 folder
               // {name:'Google map',component: 'MapPage'},
               // {name:'Image gallery',component: 'GalleryPage'},
-              // {name:'Feed',component: 'FeedPage'},
+
               // {name:'Form',component: 'FormResultPage'},
 
 
@@ -113,6 +112,11 @@ export class MyApp {
     this.pages = [
       {icon: 'log-in', title: 'Login',component:'LoginPage'},
       {icon: 'add-circle', title:'Register', component:'RegisterPage'}
+    ];
+
+    this.loggedInPages = [
+      {icon: 'person', title: 'Profile', component:'AfterLoginPage'},
+      {icon: 'cafe', title:'Events',component: 'FeedPage'},
     ];
 
   }

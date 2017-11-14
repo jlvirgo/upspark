@@ -16,22 +16,22 @@ export class AfterLoginPage {
 
     email: any;
     profilePicture: any = "https://www.gravatar.com/avatar/"
-    profileArray : any=[]; 
+    profileArray : any=[];
     profile: FirebaseObjectObservable<any[]>;
     uid:any;
 
   constructor(public navCtrl: NavController, public authData: AuthData,public alertCtrl: AlertController,public loadingCtrl: LoadingController,private toastCtrl: ToastController,public afAuth: AngularFireAuth, public afDb: AngularFireDatabase) {
-    
+
   }
   ionViewWillLoad(){
       this.afAuth.authState.subscribe(userAuth => {
         if(userAuth) {
-          this.uid = userAuth.uid;     
+          this.uid = userAuth.uid;
           this.email = userAuth.email;
           this.profilePicture = "https://www.gravatar.com/avatar/" + md5(this.email.toLowerCase(), 'hex');
 
           let loadingPopup = this.loadingCtrl.create({
-            spinner: 'crescent', 
+            spinner: 'crescent',
             content: ''
           });
           loadingPopup.present();
