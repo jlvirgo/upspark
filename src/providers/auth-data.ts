@@ -52,12 +52,13 @@ export class AuthData {
     return this.afAuth.auth.signOut();
   }
 
-  registerUser(name: string, email: string, password: string,phone: number): firebase.Promise<any> {
+  registerUser(name: string, email: string, password: string, about: string, interests: any ): firebase.Promise<any> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((newUser) => {
       firebase.database().ref('/userProfile').child(newUser.uid).set({
           email: email,
           name: name,
-          phone: phone
+          about: about,
+          interests: interests
       });
     });
   }

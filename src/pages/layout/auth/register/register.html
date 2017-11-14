@@ -1,13 +1,13 @@
 
 <ion-header no-border>
-  <ion-navbar transparent color="light">
+  <ion-navbar transparent>
     <button ion-button menuToggle>
-      <ion-icon name="menu" color="light"></ion-icon>
+      <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
 </ion-header>
 
-<ion-content style="background-color:#0a0a0a;">
+<ion-content>
   <div class="login-container">
     <img class="logo" src="./assets/upspark_logo.png" />
     <!--*********** Form ***********-->
@@ -25,12 +25,35 @@
       </ion-item>
 
       <ion-item>
-        <ion-label stacked>Phone</ion-label>
-        <ion-input tappable formControlName="phone"  type="tel" placeholder="Phone number" [class.invalid]="!registerForm.controls.phone.valid && registerForm.controls.phone.dirty"></ion-input>
+        <ion-label stacked>About</ion-label>
+        <ion-textarea tappable formControlName="about" placeholder="Add a fun fact about yourself" [class.invalid]="!registerForm.controls.email.valid && registerForm.controls.email.dirty"></ion-textarea>
       </ion-item>
 
-
-
+      <ion-item>
+        <ion-label>Interests</ion-label>
+        <ion-select formControlName="interests" multiple="true" cancelText="Cancel" okText="Select">
+          <ion-option value="sports">Sports</ion-option>
+          <ion-option value="politics">Politics</ion-option>
+          <ion-option value="music">Music</ion-option>
+          <ion-option value="movies">Movies</ion-option>
+          <ion-option value="tvShows">TV Shows</ion-option>
+          <ion-option value="popCulture">Pop Culture</ion-option>
+          <ion-option value="fashion">Fashion</ion-option>
+          <ion-option value="food">Food</ion-option>
+          <ion-option value="gaming">Gaming</ion-option>
+          <ion-option value="aviation">Aviation</ion-option>
+          <ion-option value="artsCrafts">Arts & Crafts</ion-option>
+          <ion-option value="painting">Painting</ion-option>
+          <ion-option value="traveling">Traveling</ion-option>
+          <ion-option value="bookworm">Bookworm</ion-option>
+          <ion-option value="gardening">Gardening</ion-option>
+          <ion-option value="charity">Charity</ion-option>
+          <ion-option value="parenting">Parenting</ion-option>
+          <ion-option value="comedy">Comedy</ion-option>
+          <ion-option value="lgbt">LGBT</ion-option>
+          <ion-option value="cars">Cars</ion-option>
+        </ion-select>
+      </ion-item>
 
       <ion-item>
         <ion-label stacked>Password</ion-label>
@@ -44,8 +67,6 @@
                 registerForm.controls.profileName.dirty">*Please enter your name.</p>
         <p *ngIf="!registerForm.controls.email.valid  &&
                 registerForm.controls.email.dirty">*Please enter a valid email.</p>
-        <p *ngIf="!registerForm.controls.phone.valid  &&
-                registerForm.controls.phone.dirty">*Please enter phone number.</p>
         <p *ngIf="!registerForm.controls.password.valid  &&
         registerForm.controls.password.dirty">*Password needs more than 6 characters.</p>
       </ion-item>

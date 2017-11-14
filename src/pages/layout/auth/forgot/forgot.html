@@ -1,12 +1,13 @@
 <ion-header no-border>
-  <ion-navbar transparent color="light">
+  <ion-navbar >
     <button ion-button menuToggle>
-      <ion-icon name="menu" color="light"></ion-icon>
+      <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
 </ion-header>
 
-<ion-content style="background-color:#0a0a0a;">
+
+<ion-content>
   <div class="login-container">
     <img class="logo" src="./assets/upspark_logo.png" />
     <form [formGroup]="resetPasswordForm" (submit)="resetPassword()" novalidate>

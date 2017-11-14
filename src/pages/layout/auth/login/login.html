@@ -1,12 +1,12 @@
 <ion-header no-border>
   <ion-navbar transparent>
     <button ion-button menuToggle>
-      <ion-icon name="menu" color="light"></ion-icon>
+      <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
 </ion-header>
 
-<ion-content style="background-color:#0a0a0a;">
+<ion-content>
   <div class="login-container">
     <img class="logo" src="./assets/upspark_logo.png" />
 
@@ -14,7 +14,7 @@
     <form [formGroup]="loginForm" (submit)="login()" novalidate>
       <ion-item>
         <ion-label floating>E-mail</ion-label>
-        <ion-input tappable color="black" #email type="email" formControlName="email" [class.invalid]="!loginForm.controls.email.valid &&loginForm.controls.email.dirty">
+        <ion-input tappable #email type="email" formControlName="email" [class.invalid]="!loginForm.controls.email.valid &&loginForm.controls.email.dirty">
         </ion-input>
       </ion-item>
 
@@ -43,5 +43,5 @@
 
 </ion-content>
 <ion-footer>
-  <button class="bottom" ion-button  type="button"  clear full color="light" (click)="forgot()">Forgot your password? </button>
+  <button class="bottom" ion-button  type="button"  clear full   (click)="forgot()">Forgot your password? </button>
 </ion-footer>
