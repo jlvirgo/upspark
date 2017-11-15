@@ -20,7 +20,13 @@ export class AfterLoginPage {
     profile: FirebaseObjectObservable<any[]>;
     uid:any;
 
-  constructor(public navCtrl: NavController, public authData: AuthData,public alertCtrl: AlertController,public loadingCtrl: LoadingController,private toastCtrl: ToastController,public afAuth: AngularFireAuth, public afDb: AngularFireDatabase) {
+  constructor(public navCtrl: NavController,
+              public authData: AuthData,
+              public alertCtrl: AlertController,
+              public loadingCtrl: LoadingController,
+              private toastCtrl: ToastController,
+              public afAuth: AngularFireAuth,
+              public afDb: AngularFireDatabase) {
 
   }
   ionViewWillLoad(){
@@ -41,6 +47,7 @@ export class AfterLoginPage {
               this.profileArray = profile;
               loadingPopup.dismiss()
           })
+          console.log(this.profile)
 
         } else {
           console.log('auth false');

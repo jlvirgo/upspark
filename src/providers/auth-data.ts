@@ -12,6 +12,7 @@ export class AuthData {
   profileArray : any=[];
   profile: FirebaseObjectObservable<any[]>;
   uid: any = null;
+  users: any;
 
   constructor(public afAuth: AngularFireAuth,  public afDb: AngularFireDatabase) {
     this.afAuth.authState.subscribe((auth) => {
@@ -21,6 +22,7 @@ export class AuthData {
         this.email = auth.email;
         this.profilePicture = "https://www.gravatar.com/avatar/" + md5(this.email.toLowerCase(), 'hex');
         this.profile = this.afDb.object('/userProfile/'+this.uid );
+        this.users = this.afDb.object('/userProfile/');
         this.profile.subscribe(profile => {
           this.profileArray = profile;
         })
@@ -38,6 +40,12 @@ export class AuthData {
 
   get userProfilePicture(): string {
     return this.profilePicture;
+  }
+
+  getUserData():firebase.Promise<any> {
+    return firebase.database().ref('/userProfile').once('value').then((users) => {
+      return users.val()
+    });
   }
 
   loginUser(newEmail: string, newPassword: string): firebase.Promise<any> {

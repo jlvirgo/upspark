@@ -1,77 +1,39 @@
-
-
-<ion-header no-border  class="feed-header" >
+<ion-header no-border  class="feed-header">
     <ion-navbar color="white" style="background: none; border-bottom: none" >
         <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
-    <ion-title>Social Feed</ion-title>
-    <ion-buttons right>
-        <button ion-button icon-only>
-            <ion-icon name="md-more"></ion-icon>
-        </button>
-    </ion-buttons>
+    <ion-title>Events</ion-title>
   </ion-navbar>
 </ion-header>
+{{(userEvent | async)?.group}}
 
 <!--<ion-content fullscreen=""  no-paddding shrink-header  [setHeaderH]="'500'" [headerToHide]="'feed-header'">-->
 <ion-content fullscreen=""  no-paddding shrink-header  [headerToHide]="'feed-header'">
-
-  <ion-card  *ngFor="let feed of feeds  | async">
-    <ion-item sticky>
-      <ion-avatar item-left>
-        <img [src]="feed.imgProfile">
-      </ion-avatar>
-      <h2>{{feed.name}}</h2>
-      <p>November 5, 1955</p>
-    </ion-item>
-    
-        <ion-slides  pager>
-          <ion-slide *ngFor="let images of  feed.images | async " [ngStyle]="{'background' : 'url(' + images.url + ')'}">
-          </ion-slide>
-        </ion-slides>
-      
+  <ion-card  *ngFor="let event of availableEvents  | async">
     <ion-card-content>
-      <ion-card-title>
-        {{feed.title}}
-      </ion-card-title>
-      <p>
-        {{feed.description}}
-      </p>
-    </ion-card-content>
-    
-    <ion-row>
-        <ion-col>
-          <button ion-button icon-left clear color="gray">
-            <ion-icon name="md-heart"></ion-icon>
-            <div>{{feed.like}}</div>
-          </button>
+      <ion-row>
+        <ion-col width-25>
+          <h3>Nov</h3>
         </ion-col>
-        
-        <ion-col>
-          <button ion-button icon-left clear color="gray">
-            <ion-icon name="md-chatboxes"></ion-icon>
-            <div>{{feed.comment}}</div>
-          </button>
+        <ion-col width-25></ion-col>
+        <ion-col width-25>
+          <p>Topic: {{event.group}}</p>
+          <p>Attending: {{getUsersByEmail(event.attending)}}</p>
+          <p>Invited: {{event.members}}</p>
         </ion-col>
-
-        <ion-col center text-center> 
-          <button ion-button icon-left clear color="pink">     
-            <div>REPLY</div>
+        <ion-col width-25>
+          <p>Spots Taken:
+            <ion-badge item-right> {{event.attending?.length || 0}}/5</ion-badge>
+          </p>
+          <button *ngIf="eventAvailability(event)" ion-button type="button" block icon-left color="dark" outline (click)="viewEvent(event)" margin-top>
+            <ion-icon name="add-circle"></ion-icon> Join
           </button>
+          <div *ngIf="!eventAvailability(event)">
+            This event is full
+          </div>
         </ion-col>
-    </ion-row>
-
+      </ion-row>
+      </ion-card-content>
   </ion-card>
-
-  <ion-fab right bottom>
-      <button ion-fab color="amber"><ion-icon name="md-share"></ion-icon></button>
-      <ion-fab-list side="top">
-        <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
-        <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
-        <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
-        <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
-      </ion-fab-list>
-  </ion-fab>
- 
 </ion-content>

@@ -18,28 +18,34 @@
     <div padding>
         <ion-list no-lines >
             <ion-item>
-                <ion-icon name="ios-mail" item-left></ion-icon>
+                <ion-icon name="mail" item-left></ion-icon>
                 <h2>{{(profile | async)?.email}}</h2>
                 <p>E-mail</p>
             </ion-item>
 
             <ion-item>
-              <ion-icon name="ios-card" item-left></ion-icon>
+              <ion-icon name="card" item-left></ion-icon>
               <h2>{{(profile | async)?.name}}</h2>
               <p>Name</p>
             </ion-item>
 
             <ion-item>
-              <ion-icon name="ios-call" item-left></ion-icon>
-              <h2>{{(profile | async)?.phone}}</h2>
-              <p>Mobile phone</p>
+              <ion-icon name="information-circle" item-left></ion-icon>
+              <h2>{{(profile | async)?.about}}</h2>
+              <p>About</p>
             </ion-item>
 
-            <ion-item>
-              <ion-icon name="md-finger-print"  item-left></ion-icon>
-              <h2>{{uid}}</h2>
-              <p>Firebase uid</p>
-            </ion-item>
+          <ion-item>
+            <ion-icon name="options" item-left></ion-icon>
+            <h2>{{(profile | async)?.interests}}</h2>
+            <p>Interests</p>
+          </ion-item>
+
+            <!--<ion-item>-->
+              <!--<ion-icon name="md-finger-print"  item-left></ion-icon>-->
+              <!--<h2>{{uid}}</h2>-->
+              <!--<p>Firebase uid</p>-->
+            <!--</ion-item>-->
         </ion-list>
 
         <button ion-button block color="blue2" (click)="logout()">
