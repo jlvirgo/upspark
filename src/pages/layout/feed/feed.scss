@@ -30,4 +30,25 @@ page-feed {
     max-height:100%;
   }
 
+  .event-label {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  h3 {
+    font-size: 3rem !important;
+  }
+
+  .time-days {
+    font-size: 5rem;
+  }
+
+  .time-short {
+    font-size: 3rem;
+    margin-top: 18px;
+  }
+
+  .card-md p {
+    margin-bottom: 10px;
+  }
+
 }

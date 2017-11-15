@@ -21,10 +21,6 @@ export class FeedPage {
 
   constructor(public authService: AuthData, public navCtrl: NavController, public navParams: NavParams ,public modalCtrl: ModalController,public loadingCtrl: LoadingController, public afDB: AngularFireDatabase) {
 
-    let loadingPopup = this.loadingCtrl.create({
-      spinner: 'crescent',
-      content: ''
-    });
 
     this.availableEvents = <FirebaseListObservable<any[]>> afDB.list('/events');
 
@@ -38,7 +34,7 @@ export class FeedPage {
     //     })
     //   })
 
-    this.userData = authService.getUserData();
+    //this.userData = authService.getUserData();
   }
 
   ngOnInit(){
@@ -51,16 +47,49 @@ export class FeedPage {
       return _.get(event, 'attending', 0) !== 4;
   }
 
-  getUsersByEmail(emails) {
-    emails = _.get(emails, '', '');
-    const users = _.map(this.userData, user => {
-      console.log(emails, user.email)
-      if(_.includes(emails, user.email)) {
-        console.log('hit')
-        return user.name;
-      }
-    })
-    console.log(users)
-    return users;
+  toggleInfo(data) {
+
+
+    if (data.showDetails) {
+      data.showDetails = false;
+      data.icon = 'add-circle-outline';
+    } else {
+      data.showDetails = true;
+      data.icon = 'remove-circle-outline';
+    }
+  }
+
+  getEventDetails(attendees) {
+    console.log(attendees)
+     if(attendees !== undefined) {
+       var attendeeHTML = '';
+    //   console.log(attendees, this.userData)
+      _.forEach(this.userData, user => {
+        _.forEach(attendees, email => {
+          if (email == user.email) {
+            attendeeHTML += '<p>' + user.name + ' - ' + user.title + ', ' + user.team + '</p>' +
+                '<p>Fun Fact: ' + user.about + '</p> </br>'
+          }
+        })
+      })
+     return attendeeHTML;
+    } else {
+      return '<p>No attendees have joined yet.</p>'
+    }
+  }
+
+  getNameByEmail(emails) {
+    const names = [];
+    if(emails !== undefined) {
+      // console.log(emails, this.userData)
+      _.forEach(this.userData, user => {
+        if(_.includes(emails, user.email)) {
+          names.push(user.name);
+        }
+      })
+      return names.join(', ');
+    } else {
+      return ''
+    }
   }
 }

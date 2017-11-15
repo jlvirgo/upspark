@@ -22,7 +22,9 @@ export class RegisterPage {
             profileName: ['', Validators.compose([Validators.minLength(2), Validators.required])],
             about: ['', Validators.compose([Validators.minLength(2), Validators.required])],
             interests: [[], Validators.compose([Validators.minLength(1), Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+            password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
+            title: ['', Validators.compose([Validators.minLength(1), Validators.required])],
+            team: ['', Validators.compose([Validators.minLength(1), Validators.required])],
       });
   }
 
@@ -45,7 +47,9 @@ export class RegisterPage {
           this.registerForm.value.email,
           this.registerForm.value.password,
           this.registerForm.value.about,
-          this.registerForm.value.interests)
+          this.registerForm.value.interests,
+          this.registerForm.value.title,
+          this.registerForm.value.team)
       .then(() => {
           loadingPopup.dismiss();
           this.nav.setRoot('AfterLoginPage');

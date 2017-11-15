@@ -60,13 +60,15 @@ export class AuthData {
     return this.afAuth.auth.signOut();
   }
 
-  registerUser(name: string, email: string, password: string, about: string, interests: any ): firebase.Promise<any> {
+  registerUser(name: string, email: string, password: string, about: string, interests: any, title: string, team: string ): firebase.Promise<any> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((newUser) => {
       firebase.database().ref('/userProfile').child(newUser.uid).set({
           email: email,
           name: name,
           about: about,
-          interests: interests
+          interests: interests,
+          title: title,
+          team: team
       });
     });
   }

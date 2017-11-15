@@ -25,6 +25,16 @@
       </ion-item>
 
       <ion-item>
+        <ion-label stacked>Job Title</ion-label>
+        <ion-input tappable formControlName="title" type="text" placeholder="Your job title" [class.invalid]="!registerForm.controls.title.valid && registerForm.controls.title.dirty"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Team</ion-label>
+        <ion-input tappable formControlName="team" type="text" placeholder="Your team's name" [class.invalid]="!registerForm.controls.team.valid && registerForm.controls.team.dirty"></ion-input>
+      </ion-item>
+
+      <ion-item>
         <ion-label stacked>About</ion-label>
         <ion-textarea tappable formControlName="about" placeholder="Add a fun fact about yourself" [class.invalid]="!registerForm.controls.email.valid && registerForm.controls.email.dirty"></ion-textarea>
       </ion-item>
