@@ -48,6 +48,16 @@ export class AuthData {
     });
   }
 
+  getUid():firebase.Promise<any> {
+    return this.uid;
+  }
+
+  getCurrentUserByUid(uid: string):firebase.Promise<any> {
+    return firebase.database().ref('/userProfile/'+ uid ).once('value').then((user) => {
+      return user.val()
+    });
+  }
+
   loginUser(newEmail: string, newPassword: string): firebase.Promise<any> {
     return this.afAuth.auth.signInWithEmailAndPassword(newEmail,newPassword)
   }

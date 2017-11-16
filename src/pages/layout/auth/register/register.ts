@@ -28,9 +28,7 @@ export class RegisterPage {
       });
   }
 
-
   registerUser(){
-    console.log("call signopUser");
     if (!this.registerForm.valid){
       console.log(this.registerForm.value);
       this.presentAlert("invalid form");

@@ -2,6 +2,7 @@ import { Component  } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController , LoadingController} from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 import { AuthData } from '../../../providers/auth-data';
+import { AngularFireAuth } from 'angularfire2/auth';
 import 'rxjs/add/operator/map'; // you might need to import this, or not depends on your setup
 import _ from 'lodash';
 
@@ -16,30 +17,35 @@ export class FeedPage {
   userEvent: FirebaseListObservable<any[]>;
   availableEvents: FirebaseListObservable<any[]>;
   userData: any;
+  userEmail: string;
+  userEvents: any;
+  uid: string;
 
-  feedView: string = "activity";
+  constructor(public afAuth: AngularFireAuth,
+              public authService: AuthData,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              public modalCtrl: ModalController,
+              public loadingCtrl: LoadingController,
+              public afDB: AngularFireDatabase) {
 
-  constructor(public authService: AuthData, public navCtrl: NavController, public navParams: NavParams ,public modalCtrl: ModalController,public loadingCtrl: LoadingController, public afDB: AngularFireDatabase) {
 
+    this.availableEvents = <FirebaseListObservable<any[]>> afDB.list('/meetup');
 
-    this.availableEvents = <FirebaseListObservable<any[]>> afDB.list('/events');
-
-    //loadingPopup.present();
-    // this.userEvent = <FirebaseListObservable<any[]>> afDB.list('/events').map((events) => {
-    //     return events.map((events) => {
-    //       const members = afDB.list('/event/'+events.$key+'/members');
-    //      // console.log(members);
-    //       loadingPopup.dismiss().catch(() => console.log('ERROR CATCH: LoadingController dismiss'));
-    //       return events
-    //     })
-    //   })
-
-    //this.userData = authService.getUserData();
+    this.afAuth.authState.subscribe((auth) => {
+      if(auth) {
+        this.uid = auth.uid;
+      }
+    });
   }
 
   ngOnInit(){
-    this.authService.getUserData().then(
-      data => this.userData = data
+    this.authService.getUserData().then(data => this.userData = data);
+    this.authService.getCurrentUserByUid(this.uid).then(
+      data => {
+        console.log(data, this.availableEvents)
+        this.userEmail = data.email;
+      }
     );
   }
 
@@ -48,8 +54,6 @@ export class FeedPage {
   }
 
   toggleInfo(data) {
-
-
     if (data.showDetails) {
       data.showDetails = false;
       data.icon = 'add-circle-outline';
@@ -60,13 +64,11 @@ export class FeedPage {
   }
 
   getEventDetails(attendees) {
-    console.log(attendees)
      if(attendees !== undefined) {
        var attendeeHTML = '';
-    //   console.log(attendees, this.userData)
       _.forEach(this.userData, user => {
         _.forEach(attendees, email => {
-          if (email == user.email) {
+          if (email == _.get(user, 'email', undefined)) {
             attendeeHTML += '<p>' + user.name + ' - ' + user.title + ', ' + user.team + '</p>' +
                 '<p>Fun Fact: ' + user.about + '</p> </br>'
           }
@@ -91,5 +93,13 @@ export class FeedPage {
     } else {
       return ''
     }
+  }
+
+  isUserEvent(event) {
+    return _.includes(event.members, this.userEmail) || _.includes(event.attending, this.userEmail);
+  }
+
+  joinEvent(event) {
+    console.log(event)
   }
 }

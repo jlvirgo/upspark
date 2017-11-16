@@ -47,8 +47,6 @@ export class AfterLoginPage {
               this.profileArray = profile;
               loadingPopup.dismiss()
           })
-          console.log(this.profile)
-
         } else {
           console.log('auth false');
           this.navCtrl.setRoot('LoginPage');
@@ -63,6 +61,7 @@ export class AfterLoginPage {
           console.log("Logged out");
           // toast message
           this.presentToast('bottom','You are now logged out');
+          this.navCtrl.setRoot('LoginPage');
         }, error => {
           var errorMessage: string = error.message;
           console.log(errorMessage);
