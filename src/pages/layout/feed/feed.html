@@ -17,7 +17,7 @@
           <ion-col width-25>
             <h3>{{event.time | date:'MMM'}}</h3>
             <div class="time-days">
-              {{event.time | date:'dd'}}
+              <ion-icon name="calendar"></ion-icon> {{event.time | date:'dd'}}
             </div>
           </ion-col>
           <ion-col width-25>
@@ -33,9 +33,12 @@
             <p><span class="event-label">Invited:</span> {{getNameByEmail(event.members)}}</p>
           </ion-col>
           <ion-col width-25>
-            <button *ngIf="eventAvailability(event)" ion-button type="button" block icon-left color="dark" outline (click)="joinEvent(event, authService.userProfile)" margin-top>
+            <button *ngIf="eventAvailability(event) && !isAttendingEvent(event)" ion-button type="button" block icon-left color="dark" outline (click)="joinEvent(event, authService.userProfile)" margin-top>
               <ion-icon name="add-circle"></ion-icon> Join
             </button>
+            <div *ngIf="isAttendingEvent(event)" class="attending-event">
+              <ion-icon name="checkmark-circle-outline"></ion-icon> Attending
+            </div>
             <div *ngIf="!eventAvailability(event)">
               This event is full
             </div>
@@ -53,7 +56,7 @@
             </div>
           </ion-col>
           <ion-col width-25>
-            <button *ngIf="eventAvailability(event)" ion-button type="button" block icon-left color="dark" outline (click)="redeemVoucher(event)" margin-top>
+            <button *ngIf="isAttendingEvent(event)" ion-button type="button" block icon-left color="dark" outline (click)="redeemVoucher(event)" margin-top>
               <ion-icon name="cafe"></ion-icon> Redeem Coffee
             </button>
           </ion-col>
@@ -73,7 +76,7 @@
           <ion-col width-25>
             <h3>{{event.time | date:'MMM'}}</h3>
             <div class="time-days">
-              {{event.time | date:'dd'}}
+              <ion-icon name="calendar"></ion-icon> {{event.time | date:'dd'}}
             </div>
           </ion-col>
           <ion-col width-25>
@@ -101,17 +104,12 @@
           </ion-col>
         </ion-row>
         <ion-row *ngIf="event.showDetails">
-            <ion-col width-75>
+            <ion-col width-100>
               <h2>Location: Round table next to Barista (The London)</h2>
               <hr>
               <h4>Attendees:</h4>
               <div [innerHTML]="getEventDetails(event.attending)">
               </div>
-            </ion-col>
-            <ion-col width-25>
-              <button *ngIf="eventAvailability(event)" ion-button type="button" block icon-left color="dark" outline (click)="redeemVoucher(event)" margin-top>
-                <ion-icon name="cafe"></ion-icon> Redeem Coffee
-              </button>
             </ion-col>
         </ion-row>
         </ion-card-content>

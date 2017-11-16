@@ -44,7 +44,7 @@ export class FeedPage {
     this.authService.getCurrentUserByUid(this.uid).then(
       data => {
         console.log(data, this.availableEvents)
-        this.userEmail = data.email;
+        this.userEmail = _.get(data, 'email', undefined);
       }
     );
   }
@@ -99,7 +99,12 @@ export class FeedPage {
     return _.includes(event.members, this.userEmail) || _.includes(event.attending, this.userEmail);
   }
 
+  isAttendingEvent(event) {
+    return _.includes(event.attending, this.userEmail);
+  }
+
   joinEvent(event) {
     console.log(event)
+    this.authService.setEventAttendance(event, this.userEmail);
   }
 }

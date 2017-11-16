@@ -3,6 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { AngularFireDatabase, FirebaseObjectObservable} from 'angularfire2/database';
 import md5 from 'crypto-md5'; // dependencies:"crypto-md5"
+import _ from 'lodash';
 
 @Injectable()
 export class AuthData {
@@ -48,14 +49,20 @@ export class AuthData {
     });
   }
 
-  getUid():firebase.Promise<any> {
-    return this.uid;
-  }
-
   getCurrentUserByUid(uid: string):firebase.Promise<any> {
     return firebase.database().ref('/userProfile/'+ uid ).once('value').then((user) => {
       return user.val()
     });
+  }
+
+  setEventAttendance(event: any, email: string) {
+    var attendees = _.get(event, 'attending', [email]);
+    if(!attendees[email]) {
+      attendees.push(email);
+    }
+    console.log(event.attending, email)
+    firebase.database().ref('/meetup/' + event.$key)
+      .update( { attending: attendees } );
   }
 
   loginUser(newEmail: string, newPassword: string): firebase.Promise<any> {
