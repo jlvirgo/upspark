@@ -1,5 +1,5 @@
 <ion-header no-border>
-  <ion-navbar >
+  <ion-navbar color="blue2">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -7,8 +7,9 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}">
   <div class="login-container">
+    <div class="form-wrapper">
     <img class="logo" src="./assets/upspark_logo.png" />
     <form [formGroup]="resetPasswordForm" (submit)="resetPassword()" novalidate>
 
@@ -26,6 +27,6 @@
       </button>
 
     </form>
-
+    </div>
   </div>
 </ion-content>

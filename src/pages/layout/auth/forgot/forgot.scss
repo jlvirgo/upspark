@@ -13,6 +13,7 @@ page-forgot {
 		height: auto;
 		padding-top: 2vh;
 		margin-bottom: 5vh;
+    padding: 0 25%;
 	}
 
 
@@ -53,5 +54,10 @@ page-forgot {
 	ion-button {
 		opacity: 0.8;
 	}
+
+  .form-wrapper {
+    padding: 5em;
+    background: white;
+  }
 
 }

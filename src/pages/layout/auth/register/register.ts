@@ -13,6 +13,8 @@ import { AuthData } from '../../../../providers/auth-data';
 export class RegisterPage {
   public registerForm;
 
+  public backgroundImage: any = "./assets/coffee_bg.jpg";
+
   constructor(public nav: NavController, public authData: AuthData, public fb: FormBuilder, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 
       let EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
