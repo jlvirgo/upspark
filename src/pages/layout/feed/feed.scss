@@ -70,4 +70,24 @@ page-feed {
     font-size: 3rem;
     margin-left: 15px;
   }
+
+  .badge-md {
+    margin-left: 8px;
+  }
+
+  .expanding-row {
+    border-top: 1px solid #488aff;
+    padding-top: 13px;
+  }
+
+  .event-voucher {
+    padding: 30px;
+    text-align: center;
+    .voucher-intro {
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 2rem;
+    }
+  }
 }

@@ -14,17 +14,17 @@
     <ion-card *ngIf="isUserEvent(event)">
       <ion-card-content>
         <ion-row>
-          <ion-col width-25>
+          <ion-col width-15>
             <h3>{{event.time | date:'MMM'}}</h3>
             <div class="time-days">
               <ion-icon name="calendar"></ion-icon> {{event.time | date:'dd'}}
             </div>
           </ion-col>
-          <ion-col width-25>
+          <ion-col width-15>
             <h3>Time:</h3>
             <p class="time-short">{{event.time | date:'shortTime'}}</p>
           </ion-col>
-          <ion-col width-25>
+          <ion-col width-45>
             <p><span class="event-label">Spots Taken:</span>
               <ion-badge item-right> {{event.attending?.length || 0}}/5</ion-badge>
             </p>
@@ -33,7 +33,7 @@
             <p><span class="event-label">Invited:</span> {{getNameByEmail(event.members)}}</p>
           </ion-col>
           <ion-col width-25>
-            <button *ngIf="eventAvailability(event) && !isAttendingEvent(event)" ion-button type="button" block icon-left color="dark" outline (click)="joinEvent(event, authService.userProfile)" margin-top>
+            <button *ngIf="eventAvailability(event) && !isAttendingEvent(event)" ion-button block icon-left color="blue2" outline (click)="joinEvent(event, authService.userProfile)" margin-top>
               <ion-icon name="add-circle"></ion-icon> Join
             </button>
             <div *ngIf="isAttendingEvent(event)" class="attending-event">
@@ -47,18 +47,19 @@
             </button>
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="event.showDetails">
+        <ion-row *ngIf="event.showDetails" class="expanding-row">
           <ion-col width-75>
-            <h2>Location: Round table next to Barista (The London)</h2>
+            <h2>Location: Round table next to barista (The London)</h2>
             <hr>
             <h4>Attendees:</h4>
             <div [innerHTML]="getEventDetails(event.attending)">
             </div>
           </ion-col>
           <ion-col width-25>
-            <button *ngIf="isAttendingEvent(event)" ion-button type="button" block icon-left color="dark" outline (click)="redeemVoucher(event)" margin-top>
-              <ion-icon name="cafe"></ion-icon> Redeem Coffee
-            </button>
+            <div *ngIf="isAttendingEvent(event)" class="event-voucher" margin-top>
+              <p class="voucher-intro"><ion-icon name="cafe"></ion-icon> Use to redeem a free coffee!</p>
+              <p>Show this to the barista on floor 2 at the time of the event to receive your free cup of coffee.</p>
+            </div>
           </ion-col>
         </ion-row>
       </ion-card-content>
@@ -92,7 +93,7 @@
             <p><span class="event-label">Invited:</span> {{getNameByEmail(event.members)}}</p>
           </ion-col>
           <ion-col width-25>
-            <button *ngIf="eventAvailability(event)" ion-button type="button" block icon-left color="dark" outline (click)="joinEvent(event, authService.userProfile)" margin-top>
+            <button *ngIf="eventAvailability(event)" ion-button type="button" block icon-left color="blue2" outline (click)="joinEvent(event, authService.userProfile)" margin-top>
               <ion-icon name="add-circle"></ion-icon> Join
             </button>
             <div *ngIf="!eventAvailability(event)">
@@ -103,7 +104,7 @@
             </button>
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="event.showDetails">
+        <ion-row *ngIf="event.showDetails" class="expanding-row">
             <ion-col width-100>
               <h2>Location: Round table next to Barista (The London)</h2>
               <hr>

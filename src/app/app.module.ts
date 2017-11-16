@@ -16,7 +16,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-
 //*********** Provider **************/
 import { AuthData } from '../providers/auth-data';
 import { RadioPlayer } from '../providers/radio-service';
@@ -25,7 +24,6 @@ import { RadioPlayer } from '../providers/radio-service';
 //*********** Image Gallery **************/
 import { GalleryModal } from 'ionic-gallery-modal';
 import { ZoomableImage } from 'ionic-gallery-modal';
-
 
 //********** firebase configuration  ************ */
 export const config = {
@@ -41,8 +39,7 @@ export const config = {
   declarations: [
     MyApp,
     GalleryModal,
-    ZoomableImage,
-
+    ZoomableImage
   ],
   imports: [
     BrowserModule,
@@ -56,7 +53,7 @@ export const config = {
   entryComponents: [
     MyApp,
     GalleryModal,
-    ZoomableImage,
+    ZoomableImage
   ],
   providers: [
     StatusBar,

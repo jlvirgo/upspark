@@ -1,5 +1,5 @@
 
-import { Directive,ElementRef,Renderer,Input,ViewChild} from '@angular/core';
+import  { Directive,ElementRef,Renderer,Input,ViewChild} from '@angular/core';
 import { NavController,ViewController } from 'ionic-angular';
 
 @Directive({
@@ -9,8 +9,8 @@ import { NavController,ViewController } from 'ionic-angular';
     }
 })
 export class ShrinkHeader {
-    @Input() headerToHide:string;   
-  
+    @Input() headerToHide:string;
+
     header: any;
     headerStart:any;
     contentBox: any;
@@ -39,7 +39,7 @@ export class ShrinkHeader {
     onContentScroll(ev) {
         ev.domWrite(() => {
             this.updateHeader(ev);
-        });   
+        });
     }
 
     updateHeader(ev) {

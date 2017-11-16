@@ -1,5 +1,5 @@
 import { Component  } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController , LoadingController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController , LoadingController, ToastController} from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 import { AuthData } from '../../../providers/auth-data';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -13,12 +13,9 @@ import _ from 'lodash';
 })
 
 export class FeedPage {
-
-  userEvent: FirebaseListObservable<any[]>;
   availableEvents: FirebaseListObservable<any[]>;
   userData: any;
   userEmail: string;
-  userEvents: any;
   uid: string;
 
   constructor(public afAuth: AngularFireAuth,
@@ -27,9 +24,9 @@ export class FeedPage {
               public navParams: NavParams,
               public modalCtrl: ModalController,
               public loadingCtrl: LoadingController,
-              public afDB: AngularFireDatabase) {
-
-
+              public afDB: AngularFireDatabase,
+              private toastCtrl: ToastController
+  ) {
     this.availableEvents = <FirebaseListObservable<any[]>> afDB.list('/meetup');
 
     this.afAuth.authState.subscribe((auth) => {
@@ -104,7 +101,15 @@ export class FeedPage {
   }
 
   joinEvent(event) {
-    console.log(event)
+    const toast = this.toastCtrl.create({
+      message: "You've joined the event!",
+      position: 'bottom',
+      duration: 3000
+    });
     this.authService.setEventAttendance(event, this.userEmail);
+    toast.present();
   }
 }
+
+
+
