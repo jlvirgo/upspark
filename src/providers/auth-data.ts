@@ -32,6 +32,7 @@ export class AuthData {
   }
 
   get authenticated(): boolean {
+    console.log(this.authState)
     return this.authState !== null;
   }
 

@@ -66,8 +66,8 @@ export class FeedPage {
       _.forEach(this.userData, user => {
         _.forEach(attendees, email => {
           if (email == _.get(user, 'email', undefined)) {
-            attendeeHTML += '<p>' + user.name + ' - ' + user.title + ', ' + user.team + '</p>' +
-                '<p>Fun Fact: ' + user.about + '</p> </br>'
+            attendeeHTML += '<p>' + user.name + ' - ' + user.title + ', ' + user.team + '</br>' +
+                'Fun Fact: ' + user.about + '</p> </br>'
           }
         })
       })

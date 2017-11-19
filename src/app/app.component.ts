@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ToastController } from 'ionic-angular';
 import { AuthData } from '../providers/auth-data';
 
 //***********  ionic-native **************/
@@ -18,7 +18,11 @@ export class MyApp {
   pages: Array<any>;
   loggedInPages: Array<any>;
 
-  constructor(public authService: AuthData, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public authService: AuthData,
+              public platform: Platform,
+              private toastCtrl: ToastController,
+              public statusBar: StatusBar,
+              public splashScreen: SplashScreen) {
     this.initializeApp();
 
     this.menu = [
@@ -146,6 +150,29 @@ export class MyApp {
     // page.component = item array.component -->
     //this.nav.setRoot(page.component);
     this.nav.setRoot(page.component).catch(err => console.error(err));
+  }
+
+  logout(){
+    this.authService.logoutUser()
+      .then( authData => {
+        console.log("Logged out");
+        // toast message
+        this.presentToast('bottom','You are now logged out');
+        this.nav.setRoot('LoginPage');
+      }, error => {
+        var errorMessage: string = error.message;
+        console.log(errorMessage);
+        //this.presentAlert(errorMessage);
+      });
+  }
+
+  presentToast(position: string,message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: position,
+      duration: 3000
+    });
+    toast.present();
   }
 
 }
